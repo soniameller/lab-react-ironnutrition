@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import "./App.css";
-import foods from "./foods.json";
-import FoodBox from "./components/FoodBox";
-import FoodForm from "./components/FoodForm";
-import { Container, Button, Row, Col } from "react-bootstrap";
-import Search from "./components/Search";
+import React, { Component } from 'react';
+import './App.css';
+import foods from './foods.json';
+import FoodBox from './components/FoodBox';
+import FoodForm from './components/FoodForm';
+import { Container, Button, Row, Col } from 'react-bootstrap';
+import Search from './components/Search';
 
 class App extends Component {
   constructor() {
@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       foods: foods,
       toggleForm: false,
-      searchValue: "",
+      searchValue: '',
       order: []
     };
 
@@ -41,6 +41,7 @@ class App extends Component {
   };
 
   handleSearch = e => {
+    e.preventDefault();
     this.setState({ ...this.state, searchValue: e.target.value });
   };
 
@@ -55,18 +56,19 @@ class App extends Component {
       foods: copyOfFoods,
       order: copyOfOrder
     });
-
   };
 
   itemTotalCalories = order => {
     return order.calories * order.quantity;
   };
 
-  get totalCalories(){
+  get totalCalories() {
     if (this.state.order.length !== 0)
-    return this.state.order.reduce((counter, order) => 
-      counter + order.quantity * order.calories, 0)
-  else return 0
+      return this.state.order.reduce(
+        (counter, order) => counter + order.quantity * order.calories,
+        0
+      );
+    else return 0;
   }
 
   render() {
@@ -82,13 +84,11 @@ class App extends Component {
         <Container>
           <Row>
             <Col sm={4}>
-              {" "}
+              {' '}
               <div className="d-flex flex-wrap ">
                 {this.state.foods
                   .filter(food =>
-                    food.name
-                      .toLowerCase()
-                      .includes(this.state.searchValue.toLowerCase())
+                    food.name.toLowerCase().includes(this.state.searchValue.toLowerCase())
                   )
                   .map(food => (
                     <FoodBox key={food.name} food={food} addOne={this.addOne} />

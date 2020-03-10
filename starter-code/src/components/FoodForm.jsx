@@ -11,7 +11,7 @@ export default class FoodForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   //This method needs to be bind in the constructor
   handleChange(event) {
     this.setState({
@@ -20,14 +20,15 @@ export default class FoodForm extends Component {
   }
 
   //This method with the arrow ES2018 function doesn't to be binded
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.handleSubmit(this.state);
   };
 
   render() {
     return (
       <Container>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -57,7 +58,7 @@ export default class FoodForm extends Component {
               placeholder="Image Url"
             />
           </Form.Group>
-          <Button onClick={this.handleSubmit}>Submit</Button>
+          <Button type="submit">Submit</Button>
         </Form>
       </Container>
     );
